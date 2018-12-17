@@ -72,7 +72,9 @@ def printYellowRed(mess):
     resetColor()
 
 def subZ(z):
-    z = re.sub(r'([\d\.]+)([xy])', r'\1*\2', z)
+    z=z.replace("X", "x")
+    z=z.replace("Y", "y")
+    z = re.sub(r'([\d\.]+)([xy(])', r'\1*\2', z)
     return z.replace("=", "-(" ) + ")"
 printYellowRed("本程序由"+"邬乐"+"出品，用于方程验算 #2406Workshop@2018.12.16\r\n")
 
