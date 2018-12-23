@@ -25,13 +25,14 @@
                 border: 2px solid black;
                 }
                 h6.end {
-        	font:12pt Comic Sans;
-       		width: 100%;
-        	position: fixed;
-       		bottom: 0;
-		}
-		input.inp{width:600px;height:80px;line-height:30px;font-size:72px;}
-		button.but{width:600px;height:80px;line-height:30px;font-size:72px;}
+                font:12pt Comic Sans;
+                width: 100%;
+                position: fixed;
+                bottom: 0;
+                }
+                input.inp{width:600px;height:80px;line-height:30px;font-size:72px;}
+                button.but{width:600px;height:80px;line-height:30px;font-size:72px;}
+                textarea.big{width:600px;height:300px;line-height:30px;font-size:30px;}
 </style>
 </head>
 <body background="./back.jpg"  style=" background-repeat:no-repeat ; background-size:100% 100%;  background-attachment: fixed;" >
@@ -45,28 +46,34 @@
    <h1 class="big"> 第二个等式：<input id="d2" type="text" name="d2" class="inp"/></h1>
 </form>
 <button id="btn-submit" onclick="beforeSubmit()" class="but">提交</button>
+<br>
+<textarea id="resultText" class="big" readonly=true>结果</textarea>
 <script type="text/javascript">
     function beforeSubmit() {
         var d1 = document.getElementById('d1').value;
         var d2 = document.getElementById('d2').value;
         if (d1.length < 1) {
-            alert('格式不正确！');
+            var result=document.getElementById('resultText');
+            result.innerText="格式不正确！";
             return;
         }
-        
-        // 1.创建一个FormData对象，直接把我们的表单传进去  
+
+        // 1.创建一个FormData对象，直接把我们的表单传进去
         var formData = new FormData(document.forms.namedItem("login_form"));
-        
+
         // 2.创建一个http请求对象
         var xmlHttpRequest = new XMLHttpRequest();
-        
+
         xmlHttpRequest.open('post', 'http://192.168.50.51:8000/solve');
         xmlHttpRequest.onload = function(resp) {
+            var result=document.getElementById('resultText');
             if (xmlHttpRequest.status == 200) {
                // alert('提交成功！');
-				alert(xmlHttpRequest.responseText);
+                //alert(xmlHttpRequest.responseText);
+                result.innerText=xmlHttpRequest.responseText;
             } else {
-                alert('Error:' + xmlHttpRequest.status);
+                //alert('Error:' + xmlHttpRequest.status);
+                result.innerText='Error:' + xmlHttpRequest.status;
             }
         };
         xmlHttpRequest.send(formData);
