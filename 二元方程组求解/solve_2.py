@@ -3,7 +3,7 @@ import re
 #coding=utf-8
 
 
-
+#This is Chinese version
 import ctypes,sys
  
 STD_INPUT_HANDLE = -10
